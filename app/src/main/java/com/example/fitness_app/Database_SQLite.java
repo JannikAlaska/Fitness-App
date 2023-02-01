@@ -2,6 +2,7 @@ package com.example.fitness_app;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -77,5 +78,36 @@ public class Database_SQLite extends SQLiteOpenHelper {
         {
             return newID;
         }
+    }
+
+    public void save_Session_byID(int sID, int sLegextensions, int sButterfly, int sChestpress, int sBackextensions, int sLatpulldown, boolean sLegraises, int sAbdominalcurls){
+        SQLiteDatabase db =this.getWritableDatabase();
+        String sSQL = "UPDATE "  + TABLE_FITNESS +
+                "SET " + COLUMN_LEGEXTENSIONS + " = '" + sLegextensions + "' AND " +
+                COLUMN_BUTTERFLY + " = '" + sButterfly + "' AND " +
+                COLUMN_CHESTPRESS + " = '" + sChestpress + "' AND " +
+                COLUMN_BACKEXTENSIONS + " = '" + sBackextensions + "' AND " +
+                COLUMN_LATPULLDOWN + " = '" + sLatpulldown + "' AND " +
+                COLUMN_LEGRAISES + " = " + sLegraises + " AND " +           //keine Hochkommas, da boolean
+                COLUMN_ABDOMINALCURL + " = '" + sAbdominalcurls + "' " +
+                "WHERE " + COLUMN_ID + "= " + sID + ";";
+
+        db.execSQL(sSQL);
+    }
+
+    public void delete_byID (int sID){
+        SQLiteDatabase db =  this.getWritableDatabase();
+
+        String sSQL = "DELETE FROM " + TABLE_FITNESS +
+                "WHERE " + COLUMN_ID + " = " + sID + ";";
+
+        db.execSQL(sSQL);
+    }
+
+    public Cursor get_Table(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sSQL = "SELECT * FROM " + TABLE_FITNESS + ";";
+        Cursor data = db.rawQuery(sSQL,null);
+        return data;
     }
 }
