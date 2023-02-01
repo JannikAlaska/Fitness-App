@@ -67,7 +67,7 @@ public class fragment1 extends Fragment {
             @Override
             public void onClick(View view) {
                 // Speichern Sie die eingegebenen Werte in einer Variablen oder einer Datenbank
-                
+
             }
         });
         rootLayout.addView(saveButton);
